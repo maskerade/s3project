@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+export NODE_PATH=/Users/figueiredos/sd-gitrepos/s3project/.env/lib/node_modules
+export NPM_CONFIG_PREFIX=/Users/figueiredos/sd-gitrepos/s3project/.env
+export npm_config_prefix=/Users/figueiredos/sd-gitrepos/s3project/.env
+exec .env/bin/node "$@"
