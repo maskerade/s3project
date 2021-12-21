@@ -5,7 +5,7 @@ export function defaultS3BucketProps(props: Partial<s3.BucketProps> = {}){
     encryption: s3.BucketEncryption.KMS_MANAGED,
     enforceSSL: true,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-    serverAccessLogsPrefix: "_accesslogs"
+    //serverAccessLogsPrefix: "_accesslogs"
   }
   return {...props, ..._defaultS3BucketProps}
 }

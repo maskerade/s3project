@@ -11,7 +11,7 @@ export class S3ProjectStack extends Stack {
     const s3Bucket = new s3.Bucket(this, 'S3Bucket',
       defaultS3BucketProps({
         bucketName: "example-bucket",
-        enforceSSL: false
+        enforceSSL: false,
       }))
 
   }
