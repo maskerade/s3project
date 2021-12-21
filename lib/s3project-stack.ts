@@ -1,16 +1,18 @@
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import {defaultS3BucketProps} from './utils'
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+
 
 export class S3ProjectStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const s3Bucket = new s3.Bucket(this, 'S3Bucket',
+      defaultS3BucketProps({
+        //enforceSSL: true,
+      }))
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'S3ProjectQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+
   }
 }
