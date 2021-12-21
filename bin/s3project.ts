@@ -3,6 +3,8 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { S3ProjectStack } from '../lib/s3project-stack';
 
+import { AwsSolutionsChecks } from 'cdk-nag';
+
 const app = new cdk.App();
 new S3ProjectStack(app, 'S3ProjectStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
@@ -19,3 +21,5 @@ new S3ProjectStack(app, 'S3ProjectStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+cdk.Aspects.of(app).add(new AwsSolutionsChecks());
