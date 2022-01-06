@@ -8,11 +8,17 @@ export class S3ProjectStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const s3Bucket = new s3.Bucket(this, 'S3Bucket',
-      defaultS3BucketProps({
-        bucketName: "example-bucket",
-        enforceSSL: false,
-      }))
+    // const s3Bucket = new s3.Bucket(this, 'S3Bucket',
+    //   defaultS3BucketProps(
+    //     // {
+    //     //   bucketName: "example-bucket",
+    //     //   enforceSSL: false,
+    //     //   serverAccessLogsPrefix: "my-access-logs"
+    //     // }, true
+    //   )
+    // )
+
+    const s3Bucket = new s3.Bucket(this, 'S3Bucket')
 
   }
 }
