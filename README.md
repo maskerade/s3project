@@ -3,7 +3,7 @@
 This is an example project that generates an S3 bucket demonstrating the use of a utility function to provide a set of 
 default properties.
 
-Using the standard AWS CDK S3 construct
+#### Using the standard AWS CDK S3 construct
 
 ```typescript
 import { Stack, StackProps } from 'aws-cdk-lib';
@@ -22,7 +22,7 @@ export class S3ProjectStack extends Stack {
 In the above example we are only calling the AWS S3 bucket construct, this will create an S3 Bucket with the default 
 properties that will be set by the construct class. 
 
-This next example shows how a utility function could be used to set suggested defaults
+#### Using the standard AWS CDK S3 construct with the utility function to set suggested defaults
 
 ```typescript
 import { Stack, StackProps } from 'aws-cdk-lib';
@@ -46,7 +46,7 @@ The utility function `defaultS3BucketProps()` returns a properties object with a
 
 Comparing the synthesised template that is generated in both scenarios
 
-Scenario 1 - Without utility function
+#### Scenario 1 - Without utility function
 
 ```yaml
 Resources:
@@ -192,33 +192,61 @@ cdk.Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
 
 ```
 
-
-
 #### Output of CDK Nag when using the standard AWS CDK S3 construct
+Running CDK Nag against a stack using just the default S3 construct shows the following:
+![img_2.png](img_2.png)
+
+In the above there are a number of compliance violations which prevent the template from being generated locally & 
+allows for the user to fix before committing any code changes.
+
+
+#### Output of CDK Nag when using the utility function in combination with the standard AWS CDK S3 construct
+Running CDK Nag against a stack using the utility function to generate the properties in combination with the default S3 
+construct shows the following:
+
+![img.png](img.png)
+
+In the above there are no compliance violations which prevent the template from being generated locally, giving the user 
+confidence that the synthesised template will deploy without issue.
+
+The utility function has enabled the user to meet the compliance requirements quickly and easily. 
+
+### Testing using Jest & AWS CDK Assert Library
+In addition to the use of a library such as CDK Nag described above, Jest tests can be used with the AWS CDK Assert 
+library.
+
+#### Testing configuration provided by the utility function
+
+````typescript
+test("S3 Buckets are encrypted with a KMS Key by default", () => {
+
+  template.hasResourceProperties("AWS::S3::Bucket", {
+    BucketEncryption: {
+      ServerSideEncryptionConfiguration: [
+        {
+          ServerSideEncryptionByDefault: {
+            SSEAlgorithm: "aws:kms",
+          },
+        },
+      ],
+    },
+  });
+});
+````
+
+### Further information on S3 Bucket parameters 
+
+- S3 Bucket Public Access configuration
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html
+
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html
+
+https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-s3.Bucket.html
 
 
 
-```typescript
-cdk synth                                                                                                                                                                                                            1 ✘  7s   .env   09:42:16  
-[Error at /S3ProjectStack/S3Bucket/Resource] AwsSolutions-S1: The S3 Bucket has server access logs disabled.
-
-[Error at /S3ProjectStack/S3Bucket/Resource] AwsSolutions-S2: The S3 Bucket does not have public access restricted and blocked.
-
-[Error at /S3ProjectStack/S3Bucket/Resource] AwsSolutions-S3: The S3 Bucket does not default encryption enabled.
-
-[Error at /S3ProjectStack/S3Bucket/Resource] AwsSolutions-S10: The S3 Bucket does not require requests to use SSL.
-
-Found errors
-
-```
-
-
-
-
-
-
-
-## Useful commands
+### Useful CDK Commands 
 
  * `npm run build`   compile typescript to js
  * `npm run watch`   watch for changes and compile
@@ -226,3 +254,4 @@ Found errors
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk synth`       emits the synthesized CloudFormation template
+

@@ -11,9 +11,8 @@ export function defaultS3BucketProps(props: Partial<s3.BucketProps> = {}, overri
     return {..._defaultS3BucketProps, ...props}
   }
   else {
-    const mergedProps = {...props, ..._defaultS3BucketProps}
-    console.log(mergedProps)
-    return mergedProps//{...props, ..._defaultS3BucketProps}
+
+    return{...props, ..._defaultS3BucketProps}
   }
 }
 

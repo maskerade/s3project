@@ -1,6 +1,7 @@
 {
   "name": "s3project",
   "version": "0.1.0",
+  "license": "MIT",
   "bin": {
     "s3project": "bin/s3project.js"
   },
