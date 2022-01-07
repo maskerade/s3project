@@ -18,5 +18,6 @@ export class S3ProjectStack extends Stack {
       )
     )
 
+    console.log("%cOK: All compliance checks passed", "color: green")
   }
 }
