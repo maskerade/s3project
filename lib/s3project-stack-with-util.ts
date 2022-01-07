@@ -9,13 +9,13 @@ export class S3ProjectStack extends Stack {
     super(scope, id, props);
 
     const s3Bucket = new s3.Bucket(this, 'S3Bucket',
-      // defaultS3BucketProps(
-      //   // {
-      //   //   bucketName: "example-bucket",
-      //   //   enforceSSL: false,
-      //   //   serverAccessLogsPrefix: "my-access-logs"
-      //   // }, true
-      // )
+      defaultS3BucketProps(
+        // {
+        //   bucketName: "example-bucket",
+        //   enforceSSL: false,
+        //   serverAccessLogsPrefix: "my-access-logs"
+        // }, true
+      )
     )
 
   }
