@@ -1,4 +1,4 @@
-import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3 from '@aws-cdk/aws-s3';
 
 export function defaultS3BucketProps(props: Partial<s3.BucketProps> = {}, override: boolean = false){
   const _defaultS3BucketProps: Partial<s3.BucketProps> = {
